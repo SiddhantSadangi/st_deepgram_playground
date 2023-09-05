@@ -1,0 +1,4 @@
+deepgram
+mimetypes
+pytube
+streamlit
