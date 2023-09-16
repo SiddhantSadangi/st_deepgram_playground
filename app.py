@@ -123,7 +123,10 @@ def prerecorded(source, options: dict[str, str]) -> None:
         st.error(e)
 
 
-st.header("🛝Deepgram API Playground", divider="violet")
+st.header("🎵➡️ 🔠 Deepgram STT API Playground", divider="violet")
+st.caption(
+    "A feature-rich API playground for Deepgram's SoTA Speech-to-Text and Speech-Recognition models 🚀"
+)
 
 lcol, mcol, rcol = st.columns(3)
 audio_format = lcol.selectbox(
