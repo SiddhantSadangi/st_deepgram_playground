@@ -1,3 +1,4 @@
 deepgram-sdk
 pytube
 streamlit
+streamlit-audiorec

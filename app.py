@@ -8,10 +8,9 @@ import requests
 import streamlit as st
 from deepgram import Deepgram
 from pytube import YouTube
+from st_audiorec import st_audiorec
 
-from st_custom_components import st_audiorec
-
-__version__ = "0.1.0"
+__version__ = "0.1.2"
 
 st.set_page_config(
     page_title="Deepgram API Playground",
