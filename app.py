@@ -466,7 +466,13 @@ else:
     # TODO: Show code for Streaming input
     pass
 
-if st.button("🪄 Transcribe", use_container_width=True, type="primary"):
+if st.button(
+    "🪄 Transcribe",
+    use_container_width=True,
+    type="primary",
+    disabled=not deepgram_api_key,
+    help="" if deepgram_api_key else "Enter your Deepgram API key",
+):
     if audio_format == "Streaming":
         st.info("Use the 'Stop' button at the top right to stop transcription", icon="⏹️")
         asyncio.run(streaming(url, options))
