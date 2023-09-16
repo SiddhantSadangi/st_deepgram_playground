@@ -1,4 +1,4 @@
-deepgram
+deepgram-sdk
 mimetypes
 pytube
 streamlit
