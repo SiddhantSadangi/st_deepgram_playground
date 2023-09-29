@@ -10,7 +10,7 @@ from deepgram import Deepgram
 from pytube import YouTube
 from st_audiorec import st_audiorec
 
-__version__ = "0.1.2"
+__version__ = "0.2.0"
 
 st.set_page_config(
     page_title="Deepgram API Playground",
@@ -18,6 +18,7 @@ st.set_page_config(
 )
 
 MODELS = {
+    "Nova-2": "nova-2-ea",
     "Nova": "nova",
     "Whisper Cloud": "whisper-medium",
     "Enhanced": "enhanced",
@@ -378,7 +379,7 @@ else:
             key="url",
             value="https://static.deepgram.com/examples/interview_speech-analytics.wav"
             if audio_yt == "Audio URL"
-            else "https://www.youtube.com/shorts/3tfFDXGsMV8",
+            else "https://www.youtube.com/watch?v=qHrN5Mf5sgo",
         )
 
         if url != "":
@@ -398,7 +399,10 @@ else:
         st.session_state["mimetype"] = guess_type(st.session_state["audio"])[0]
 
     if st.session_state["audio"] and audio_source != "️🗣 Record audio️":
-        st.audio(st.session_state["audio"])
+        if audio_yt == "Youtube link":
+            st.video(url)
+        else:
+            st.audio(st.session_state["audio"])
 
 options = {
     "model": MODELS[model],
