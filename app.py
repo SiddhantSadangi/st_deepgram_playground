@@ -10,7 +10,7 @@ from deepgram import Deepgram
 from pytube import YouTube
 from st_audiorec import st_audiorec
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 st.set_page_config(
     page_title="Deepgram API Playground",
@@ -399,7 +399,7 @@ else:
         st.session_state["mimetype"] = guess_type(st.session_state["audio"])[0]
 
     if st.session_state["audio"] and audio_source != "️🗣 Record audio️":
-        if audio_yt == "Youtube link":
+        if audio_source == "🌐 Load from URL" and audio_yt == "Youtube link":
             st.video(url)
         else:
             st.audio(st.session_state["audio"])
