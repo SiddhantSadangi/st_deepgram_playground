@@ -178,6 +178,9 @@ with st.sidebar:
                 deepgram_api_key = st.secrets["DEEPGRAM_API_KEY"]
             elif "DEEPGRAM_API_KEY" in os.environ:
                 deepgram_api_key = os.getenv("DEEPGRAM_API_KEY")
+            else:
+                st.error("Please enter your Deepgram API key to continue")
+                st.stop()
 
         deepgram = Deepgram(deepgram_api_key)
 
