@@ -10,7 +10,7 @@ from deepgram import Deepgram
 from pytube import YouTube
 from st_audiorec import st_audiorec
 
-__version__ = "0.2.1"
+__version__ = "0.2.2"
 
 st.set_page_config(
     page_title="Deepgram API Playground",
@@ -150,9 +150,7 @@ language = mcol.selectbox(
 lang_options = {
     "detect_language"
     if language == "Automatic Language Detection"
-    else "language": True
-    if language == "Automatic Language Detection"
-    else LANGUAGES[language]
+    else "language": (True if language == "Automatic Language Detection" else LANGUAGES[language])
 }
 
 model = rcol.selectbox(
@@ -377,9 +375,11 @@ else:
         url = st.text_input(
             "URL",
             key="url",
-            value="https://static.deepgram.com/examples/interview_speech-analytics.wav"
-            if audio_yt == "Audio URL"
-            else "https://www.youtube.com/watch?v=qHrN5Mf5sgo",
+            value=(
+                "https://static.deepgram.com/examples/interview_speech-analytics.wav"
+                if audio_yt == "Audio URL"
+                else "https://www.youtube.com/watch?v=qHrN5Mf5sgo"
+            ),
         )
 
         if url != "":
@@ -443,15 +443,19 @@ if audio_format == "Prerecorded":
         # file is uploaded/recorded
         source = {
             "buffer": st.session_state["audio"],
-            "mimetype": st.session_state["mimetype"]
-            if audio_source == "⬆️ Upload audio file"
-            else "audio/wav",
+            "mimetype": (
+                st.session_state["mimetype"]
+                if audio_source == "⬆️ Upload audio file"
+                else "audio/wav"
+            ),
         }
         display_source = {
             "buffer": "AUDIO_FILE",
-            "mimetype": st.session_state["mimetype"]
-            if audio_source == "⬆️ Upload audio file"
-            else "audio/wav",
+            "mimetype": (
+                st.session_state["mimetype"]
+                if audio_source == "⬆️ Upload audio file"
+                else "audio/wav"
+            ),
         }
     else:
         # file is local
