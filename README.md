@@ -10,23 +10,22 @@ A playground for the <a  target="_blank" href="https://www.deepgram.com">Deepgra
 ## 🦾 Features
 This app offers additional functionality currently lacking in <a target="_blank" href="https://playground.deepgram.com/">Deepgram's API playground</a>:
 - [X] Cache functionality to cache returned results. **Save time and money** on your API requests
-- [X] Support for both recorded and streaming input
 - [X] Support for additional audio sources - 
+  - Streaming input
   - 🎙️Microphone
   - 🌐 Audio URLs
-  - ▶️ YouTube links
 - [X] Additional Deepgram API <a href="https://developers.deepgram.com/docs/features-overview" tagret="_blank">features</a>
  that are currently unavailable in Deepgram's playground.
+- [X] Ability to run the app locally (by downloading source from [GitHub](https://www.github.com/siddhantsadangi/st_deepgram_playground)) 
 
 ## :magic_wand: Usage
 
 1. Sign-up for a <a target="_blank" href="https://console.deepgram.com/signup">Free Deepgram API key</a>
-2. Enter your API key in the app. Your key will be used only as long as the app is active 🔐
-3. Select the input format (Prerecorded or Streaming), audio language, transcription model from the top
-4. Choose an audio source and enter required details
-5. Preview the passed audio (availoable only for `Prerecorded` input format)
-6. Select the features from the left sidebar
-7. Hit **Transcribe** and wait for the results 🚀.
+1. Enter your API key in the app. Your key will be used only as long as the app is active 🔐
+1. Select the input format (Prerecorded or Streaming), audio language, transcription model from the top
+1. Choose an audio source and enter required details
+1. Select the features from the left sidebar
+1. Hit **Transcribe** and wait for the results 🚀.
 
 ## 🎗️ License
 This work is licensed under a <a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
