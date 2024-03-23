@@ -2,7 +2,6 @@
 import os
 import threading
 import traceback
-from mimetypes import guess_type
 
 import httpx
 import streamlit as st
@@ -15,10 +14,11 @@ from deepgram import (
 )
 from pytube import YouTube
 from st_audiorec import st_audiorec
+from st_social_media_links import SocialMediaIcons
 from streamlit.runtime.scriptrunner import add_script_run_ctx, get_script_run_ctx
 
 # Configs
-__version__ = "1.0.0"
+__version__ = "1.0.2"
 
 st.set_page_config(
     page_title="Deepgram API Playground",
@@ -29,6 +29,11 @@ st.set_page_config(
         "Report a Bug": "https://github.com/SiddhantSadangi/st_deepgram_playground/issues/new",
         "Get help": None,
     },
+)
+
+st.header("🎵➡️ 🔠 Deepgram STT API Playground", divider="violet")
+st.caption(
+    "A feature-rich API playground for Deepgram's SoTA Speech-to-Text and Speech-Recognition models 🚀"
 )
 
 MODELS = {
@@ -185,11 +190,6 @@ def prerecorded(source, options: PrerecordedOptions) -> None:
     except Exception as e:
         st.error(e)
 
-
-st.header("🎵➡️ 🔠 Deepgram STT API Playground", divider="violet")
-st.caption(
-    "A feature-rich API playground for Deepgram's SoTA Speech-to-Text and Speech-Recognition models 🚀"
-)
 
 lcol, mcol, rcol = st.columns(3)
 audio_format = lcol.selectbox(
@@ -396,7 +396,7 @@ with st.sidebar:
         else:
             utt_split = 0.8
 
-    with st.expander("📚Resources"):
+    with st.expander("📚 Deepgram Resources"):
         st.write("📖 [Docs](https://developers.deepgram.com/docs)")
         st.write("📟 [Dev Console](https://console.deepgram.com/)")
         st.write("🤗 [Community Support](https://github.com/orgs/deepgram/discussions/)")
@@ -404,7 +404,44 @@ with st.sidebar:
     with open("sidebar.html", "r", encoding="UTF-8") as sidebar_file:
         sidebar_html = sidebar_file.read().replace("{VERSION}", __version__)
 
-    st.components.v1.html(sidebar_html, height=600)
+    st.components.v1.html(sidebar_html, height=228)
+
+    st.html(
+        """
+        <div style="text-align:center; font-size:14px; color:lightgrey">
+            <hr style="margin-bottom: 6%; margin-top: 0%;">
+            Share the ❤️ on social media
+        </div>"""
+    )
+
+    social_media_links = [
+        "https://www.facebook.com/sharer/sharer.php?kid_directed_site=0&sdk=joey&u=https%3A%2F%2Fdeepgram-playground.streamlit.app%2F&display=popup&ref=plugin&src=share_button",
+        "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fdeepgram-playground.streamlit.app%2F",
+        "https://x.com/intent/tweet?original_referer=https%3A%2F%2Fdeepgram-playground.streamlit.app%2F&ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Eshare%7Ctwgr%5E&text=Check%20out%20this%20feature-packed%20Speech-To-Text%20Streamlit%20app%21&url=https%3A%2F%2Fdeepgram-playground.streamlit.app%2F",
+    ]
+
+    social_media_icons = SocialMediaIcons(
+        social_media_links, colors=["lightgray"] * len(social_media_links)
+    )
+
+    social_media_icons.render(sidebar=True)
+
+    st.html(
+        """
+        <div style="text-align:center; font-size:12px; color:lightgrey">
+            <hr style="margin-bottom: 6%; margin-top: 6%;">
+            <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                <img alt="Creative Commons License" style="border-width:0"
+                    src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
+            </a><br><br>
+            This work is licensed under a <b>Creative Commons
+                Attribution-NonCommercial-ShareAlike 4.0 International License</b>.<br>
+            You can modify and build upon this work non-commercially. All derivatives should be
+            credited to Siddhant Sadangi and
+            be licenced under the same terms.
+        </div>
+    """
+    )
 
 
 if audio_format == "Streaming":
@@ -484,7 +521,6 @@ elif audio_format == "Prerecorded":
 
     else:
         st.session_state["audio"] = "assets/sample_file.wav"
-        st.session_state["mimetype"] = guess_type(st.session_state["audio"])[0]
 
     if st.session_state["audio"] and audio_source != "️🗣 Record audio️":
         if audio_source == "🌐 Load from URL" and audio_yt == "Youtube link":
@@ -518,51 +554,37 @@ if audio_format == "Prerecorded":
         if audio_yt == "Audio URL":
             source = {"url": url}
         else:
-            source = {
-                "buffer": open(st.session_state["audio"], "rb"),
-                "mimetype": "audio/mpeg",
-            }
+            source = {"buffer": open(st.session_state["audio"], "rb")}
     elif audio_source in (["⬆️ Upload audio file", "️🗣 Record audio️"]):
         # file is uploaded/recorded
         source = {
             "buffer": st.session_state["audio"],
-            "mimetype": (
-                st.session_state["mimetype"]
-                if audio_source == "⬆️ Upload audio file"
-                else "audio/wav"
-            ),
-        }
-        display_source = {
-            "buffer": "AUDIO_FILE",
-            "mimetype": (
-                st.session_state["mimetype"]
-                if audio_source == "⬆️ Upload audio file"
-                else "audio/wav"
-            ),
         }
     else:
         # file is local
-        source = {
-            "buffer": open(st.session_state["audio"], "rb").read(),
-            "mimetype": st.session_state["mimetype"],
-        }
+        source = {"buffer": open(st.session_state["audio"], "rb").read()}
 
 # TODO: Update for v3
-#     # Write code
-#     with st.expander("🧑‍💻 Code", expanded=False):
+# Write code
+#     with st.expander("🧑‍💻 Request preview", expanded=False):
 #         st.code(
-#             f"""from deepgram import DeepgramClient, Pre
+# f"""
+# from deepgram import DeepgramClient, PrerecordedOptions
 
-#             deepgram = DeepgramClient()
+# deepgram = DeepgramClient(DEEPGRAM_API_KEY)
 
-#             response = (
-#                 deepgram.listen.prerecorded.v(\"1\")
-#                 .transcribe_file(
-#                     listen.sync_prerecorded(
-#     {source if audio_source not in (["⬆️ Upload audio file", "️🗣 Record audio️"]) else display_source},
-#     {options}
-# )"""
-#         )
+# payload = dict(buffer={source["buffer"] if type(source["buffer"])=="str" else "AUDIO_BUFFER"})
+
+# response = (
+#     deepgram.listen.prerecorded.v("1")
+#     .transcribe_file(
+#         payload,
+#         options,
+#     )
+#     .to_dict()
+# )
+# """
+# )
 # else:
 #     # TODO: Show code for Streaming input
 #     pass
@@ -580,7 +602,7 @@ if st.button(
         else:
             prerecorded(source, options)
     except Exception as e:
-        if str(e) == "The read operation timed out":
+        if str(e).endswith("timed out"):
             st.error(
                 f"""{e}  
                 Please try after some time, or try with a smaller source if the issue persists.""",
