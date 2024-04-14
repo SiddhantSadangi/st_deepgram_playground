@@ -617,3 +617,8 @@ if st.button(
                 icon="🥺",
             )
             st.code(traceback.format_exc())
+
+st.success(
+    "[Star the repo](https://github.com/SiddhantSadangi/st_login_form) to show your :heart:",
+    icon="⭐",
+)
