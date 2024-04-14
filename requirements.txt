@@ -1,3 +1,4 @@
 deepgram-sdk
 pytube
+st-social-media-links
 streamlit-audiorec
