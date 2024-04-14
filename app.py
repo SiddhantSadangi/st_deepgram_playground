@@ -18,7 +18,7 @@ from st_social_media_links import SocialMediaIcons
 from streamlit.runtime.scriptrunner import add_script_run_ctx, get_script_run_ctx
 
 # Configs
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 
 st.set_page_config(
     page_title="Deepgram API Playground",
@@ -619,6 +619,6 @@ if st.button(
             st.code(traceback.format_exc())
 
 st.success(
-    "[Star the repo](https://github.com/SiddhantSadangi/st_login_form) to show your :heart:",
+    "[Star the repo](https://github.com/SiddhantSadangi/st_deepgram_playground) to show your :heart:",
     icon="⭐",
 )
